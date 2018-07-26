@@ -1,25 +1,17 @@
 {
-  "name": "todo-list",
-  "version": "1.0.0",
-  "description": "Todo-list app demo VNG Training",
-  "main": "app.js",
+  "name": "todo",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "node ./bin/www"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ngtritham/todo-list.git"
-  },
-  "author": "Tham",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ngtritham/todo-list/issues"
-  },
-  "homepage": "https://github.com/ngtritham/todo-list#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "ejs": "^2.6.1",
-    "express": "^4.16.3"
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.7",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "morgan": "~1.9.0"
   }
 }
