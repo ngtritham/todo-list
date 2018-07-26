@@ -32,14 +32,13 @@ ul li:hover {
 
 ul li.checked {
     background: #888;
-    color: #fff;
-    text-decoration: line-through;
+    color: #64fc92;
 }
 
 ul li.checked::before {
     content: '';
     position: absolute;
-    border-color: #fff;
+    border-color: #64fc92;
     border-style: solid;
     border-width: 0 2px 2px 0;
     top: 10px;

@@ -1,25 +1,3 @@
-// $(document).ready(function () {
-//     $('button').click(function () {
-//         $('#todo').append("<li><i id='abc' class='fas fa-check isChecked'></i>" + $("input[name=task]").val() + "<i class='fas fa-trash-alt close'></i></li>");
-//     });
-//     $("body").on('click', '#todo i', function () {
-//         //$(this).closest("ul").remove();
-//     });
-
-//     $("body").on('click', '#todo i .isChecked', () => {
-//         alert("Checked !!");
-//     });
-
-//     $("li").click(function () {
-//         alert("Click check");
-//     });
-
-//     $("#alert").click(() => {
-//         alert("Click check");
-//     });
-// });
-
-
 // Create a "close" button and append it to each list item
 var myNodelist = document.getElementsByTagName("LI");
 var i;
