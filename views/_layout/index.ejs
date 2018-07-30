@@ -43,19 +43,30 @@
           <form class="form-inline" action="/addTask" method="POST">
             <div class="form-group">
               <input type="text" class="form-control" id="content" placeholder="Nhập công việc" name="content">
+              <input type="text" class="form-control" id="start" placeholder="Bắt đầu" name="start">
+              <input type="text" class="form-control" id="finish" placeholder="Kết thúc" name="finish">
             </div>
-            <button type="submit" class="btn btn-default">Thêm</button>
+            <button onclick="newElement()" type="submit" class="btn btn-default">Thêm</button>
           </form>
 
-          <input type="text" id="myInput" placeholder="Nhập task">
-          <span onclick="newElement()" class="addBtn">Thêm</span>
+          <!-- <input type="text" id="myInput" placeholder="Nhập task">
+          <span onclick="newElement()" class="addBtn">Thêm</span> -->
         </div>
 
-        <%- include('../task_list/task_list.ejs'); %>
+        <div id="taskList">
+        </div>
 
+        <div class="row">
+          <div class="col-xs-5" style="background-color: aqua"></div>
+          <div class="col-xs-3" style="background-color: red"></div>
+          <div class="col-xs-1" style="background-color: yellow"></div>
+          <div class="col-xs-1" style="background-color: green"></div>
+          <div class="col-xs-1" style="background-color: blue"></div>
+          <div class="col-xs-1" style="background-color: blueviolet">x</div>
+        </div>
       </div>
-    </div>
 
+    </div>
     <div id="footer">
       <% include footer %>
     </div>
@@ -69,6 +80,56 @@
   <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
     crossorigin="anonymous"></script>
   <script src="javascripts/index.js"></script>
+  <script>
+    let loadTask = (tasks, parent_id) => {
+      let html = '';
+      let tempArr = [];
+      tasks.forEach(element => {
+        if (element.parent_id === parent_id)
+
+          tempArr.push(element);
+      });
+
+      console.log(tempArr);
+
+      if (tempArr.length > 0) {
+        html += "<ul>";
+        for (let i = 0; i < tempArr.length; i++) {
+          html += "<li>" + "<div class='row'> <div class='col-xs-5' style='background-color: aqua'>";
+          html += tempArr[i].content + "</div>";
+          console.log(tempArr[i], i);
+          loadTask(tasks, tempArr[i].id);
+          html += "<div class='col-xs-3' style='background-color: red'>Time</div>";
+          html += "<div class='col-xs-1'><i class='fas fa-plus'></i></div>";
+          html += "<div class='col-xs-1'><span><i class='fas fa-pen'></i><span></div>";
+          html += "<div class='col-xs-1'><i class='fas fa-times'></i></div>";
+          html += "<div class='col-xs-1'><i class='fas fa-caret-down'></i></div>";
+          html += "</div>";
+          html += "</li>";
+        }
+        html += "</ul>";
+      }
+
+      return html;
+    }
+
+    let test = () => {
+      return "abc";
+    }
+
+    $.ajax({
+      url: "/showTask",
+      type: "get",
+      dataType: "json",
+      success: function (result) {
+        // for(let i = 0; i < result.length; i++){
+        //   console.log(result[i].id);
+        //   $("#taskList").append(loadTask(result, 0));
+        // }
+        $("#taskList").append(loadTask(result, 0));
+      }
+    });
+  </script>
 </body>
 
 </html>

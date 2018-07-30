@@ -13,20 +13,26 @@ var urlencodedParser = bodyParser.urlencoded({
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('_layout/index', {
-    title: 'Express'
+  taskModel.loadAll().then(rows => {
+    res.render('_layout/index', {
+      title: 'Todo List App',
+      tasks: rows
+    });
   });
+  
 });
 
 router.post('/addTask', urlencodedParser, (req, res) => {
   console.log(req.body.content);
 
-  res.send("Thêm task thành công !!");
+  //res.send("Thêm task thành công !!");
 });
 
 router.get('/showTask', (req, res) => {
   taskModel.loadAll().then(rows => {
-    res.send(rows);
+    //console.log(rows);
+    res.writeHead(200, {'Content-Type': 'text/json'});
+    res.end(JSON.stringify(rows));
   });
 });
 
