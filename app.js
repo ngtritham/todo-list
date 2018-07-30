@@ -25,13 +25,13 @@ app.use(logger('dev'));
 // app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(bodyParser());
+// parse application/json
+app.use(bodyParser.json())
 // Config body-parser
 app.use(bodyParser.urlencoded({
   extended: false
 }))
-
-// parse application/json
-app.use(bodyParser.json())
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
