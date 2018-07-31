@@ -1,20 +1,14 @@
-$(document).ready(function(){
-    $("p").click(function(){
-        $(this).hide();
-    });
-});
-
-
 // Create a "close" button and append it to each list item
-var myNodelist = document.getElementsByTagName("LI");
-var i;
-for (i = 0; i < myNodelist.length; i++) {
-    var span = document.createElement("SPAN");
-    var txt = document.createTextNode("\u00D7");
-    span.className = "close";
-    span.appendChild(txt);
-    myNodelist[i].appendChild(span);
-}
+// var myNodelist = document.getElementsByTagName("LI");
+// var i;
+// console.log(myNodelist);
+// for (i = 0; i < myNodelist.length; i++) {
+//     var span = document.createElement("SPAN");
+//     var txt = document.createTextNode("<i class='fas fa-times'></i>");
+//     //span.className = "close";
+//     span.appendChild(txt);
+//     myNodelist[i].appendChild(span);
+// }
 
 
 // Click on a close button to hide the current list item
