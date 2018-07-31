@@ -15,12 +15,36 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/addTask', (req, res) => {
-  let json = JSON.stringify(req.body);
+  let parent_id = req.body.parent_id;
   let content = req.body.content;
-  let start = req.body.start_date;
-  let end = req.body.end_date;
-  //console.log(json);
-  taskModel.add(null, content, start, end).then(values => {
+  let start_date = req.body.start_date;
+  let end_date = req.body.end_date;
+  taskModel.add(parent_id, content, start_date, end_date).then(values => {
+    console.log(values);
+  }).catch(error => {
+    console.log(error);
+  });
+  res.redirect('/');
+});
+
+router.post('/removeTask', (req, res) => {
+  taskId = req.body.taskId;
+  console.log(taskId);
+  taskModel.delete(taskId).then(result => {
+    console.log("Xóa task id=" + taskId + " thành công !!!");
+  }).catch(error => {
+    console.log("Lỗi không xóa được task id=" + taskId + "\nError:" + error);
+  });
+
+  res.redirect('/');
+});
+
+router.post('/editTask', (req, res) => {
+  let taskId = req.body.taskId;
+  let content = req.body.content;
+  let start_date = req.body.start_date;
+  let end_date = req.body.end_date;
+  taskModel.edit(taskId, content, start_date, end_date).then(values => {
     console.log(values);
   }).catch(error => {
     console.log(error);
