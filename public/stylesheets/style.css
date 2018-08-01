@@ -63,7 +63,7 @@ ul li.checked::before {
 
 .header {
     background-color: #57a5cc;
-    padding: 30px 40px;
+    padding: 5px 40px;
     color: black;
     text-align: center;
     margin-top: 15%;
@@ -187,4 +187,16 @@ span .option {
 
 .col-xs-2 span {
     width: 25%;
+}
+
+#btnAddChild {
+    float: right;
+    margin-top: 20px;
+    margin-right: 23px;
+}
+
+#btnEditTask {
+    float: right;
+    margin-top: 20px;
+    margin-right: 23px;
 }

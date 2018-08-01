@@ -12,8 +12,6 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
     crossorigin="anonymous">
 
-  <!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-    crossorigin="anonymous"></script> -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
@@ -33,13 +31,13 @@
         <div id="myDIV" class="header">
           <h2>To do App</h2>
 
-          <form class="form-inline" action="/addTask" method="POST">
+          <form id="formAdd" class="form-inline" action="/addTask" method="POST">
             <div class="form-group">
-              <input type="text" class="form-control" id="content" placeholder="Nhập công việc" name="content">
-              <input type="date" class="form-control" id="start_date" placeholder="Bắt đầu" name="start_date">
-              <input type="date" class="form-control" id="end_date" placeholder="Kết thúc" name="end_date">
+              <input type="text" class="form-control" id="content" placeholder="Nhập công việc" name="content" required>
+              <input type="date" class="form-control" id="start_date" placeholder="Bắt đầu" name="start_date" required>
+              <input type="date" class="form-control" id="end_date" placeholder="Kết thúc" name="end_date" required>
             </div>
-            <button onclick="displayNewTask()" type="submit" class="btn btn-default">Thêm</button>
+            <button onclick="validateAddInput()" type="button" class="btn btn-default">Thêm</button>
           </form>
         </div>
 
@@ -59,14 +57,15 @@
               <h4 class="modal-title">Nhập nội dung task con</h4>
             </div>
             <div class="modal-body">
-              <form class="form-inline" action="/addTask" method="POST">
+              <form id="formAddChild" class="form-inline" action="/addTask" method="POST">
                 <div class="form-group">
-                  <input type="text" class="form-control" id="content" placeholder="Nhập công việc" name="content">
-                  <input type="date" class="form-control" id="start_date" placeholder="Bắt đầu" name="start_date">
-                  <input type="date" class="form-control" id="end_date" placeholder="Kết thúc" name="end_date">
+                  <input type="text" class="form-control" id="child_content" placeholder="Nhập công việc" name="content" required>
+                  <input type="date" class="form-control" id="child_start_date" placeholder="Bắt đầu" name="start_date" required>
+                  <input type="date" class="form-control" id="child_end_date" placeholder="Kết thúc" name="end_date" required>
                   <input type="hidden" name="parent_id" id="parent_id" value="">
+                  <button id="btnAddChild" onclick="validateAddChildInput()" type="button" class="btn btn-default">Thêm</button>
                 </div>
-                <button onclick="getParentIdFromCookie()" type="submit" class="btn btn-default">Submit</button>
+
               </form>
             </div>
           </div>
@@ -85,30 +84,40 @@
               <h4 class="modal-title">Nhập nội dung chỉnh sửa</h4>
             </div>
             <div class="modal-body">
-              <form class="form-inline" action="/editTask" method="POST">
+              <form id="formEdit" class="form-inline" action="/editTask" method="POST">
                 <div class="form-group">
-                  <input type="text" class="form-control" id="content" placeholder="Nhập công việc" name="content">
-                  <input type="date" class="form-control" id="start_date" placeholder="Bắt đầu" name="start_date">
-                  <input type="date" class="form-control" id="end_date" placeholder="Kết thúc" name="end_date">
+                  <input type="text" class="form-control" id="edit_content" placeholder="Nhập công việc" name="content" required>
+                  <input type="date" class="form-control" id="edit_start_date" placeholder="Bắt đầu" name="start_date" required>
+                  <input type="date" class="form-control" id="edit_end_date" placeholder="Kết thúc" name="end_date" required>
                   <input type="hidden" name="taskId" id="taskId" value="">
+                  <button id="btnEditTask" onclick="validateEditInput()" type="button" class="btn btn-default">Submit</button>
                 </div>
-                <button onclick="getTaskIdFromCookie()" type="submit" class="btn btn-default">Submit</button>
+
               </form>
             </div>
           </div>
 
         </div>
       </div>
+    </div>
 
-    </div>
-    <div id="footer">
-      <% include footer %>
-    </div>
+
+
+
+
+
+  </div>
+  <!-- <div id="footer">
+    <% include footer %>
+  </div> -->
   </div>
 
+  <script src="lib/moment.js"></script>
   <script src="javascripts/loadTasks.js"></script>
   <script src="javascripts/index.js"></script>
   <script src="javascripts/buttonsEvent.js"></script>
+  <script src="javascripts/validateInput.js"></script>
+  <script src="javascripts/eventHandler.js"></script>
 </body>
 
 </html>

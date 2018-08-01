@@ -19,6 +19,8 @@ let loadTasks = (tasks, parent_id) => {
     tempArr.forEach(element => {
         let li = $("<li></li>");
         li.attr("id", element.id);
+        //li.attr("onclick", "toggleChecked(this)");
+        li.attr("class", "task");
 
         let row = $("<div></div>");
         row.addClass("row");
@@ -65,7 +67,7 @@ let loadTasks = (tasks, parent_id) => {
         bunttons.append(dropdownBtn);
         bunttons.append(addBtn);
         bunttons.append(removeBtn);
-        
+
         row.append(bunttons);
 
         li.append(row);
@@ -74,28 +76,15 @@ let loadTasks = (tasks, parent_id) => {
     });
 }
 
-// let addRemoveBtn = () => {
-//     let nodeList = $("li");
-//     for (let i = 0; i < nodeList.length; i++) {
-//         let span = $("<span></span>");
-//         let rmBtn = "<i class='fas fa-times'></i>";
-//         span.html(rmBtn);
-//         span.addClass("close");
-//         nodeList[i].append("X");
-//         console.log(span);
+// // Toggle checked
+// $("#0").click(function (event) {
+//     let isChecked = $(event.target).hasClass("checked");
+//     if (!isChecked) {
+//         $(event.target).addClass("checked");
+//     } else {
+//         $(event.target).removeClass("checked");
 //     }
-// }
-
-// Toggle checked
-$("#0").click(function (event) {
-    let isChecked = $(event.target).hasClass("checked");
-    if (!isChecked) {
-        $(event.target).addClass("checked");
-    } else {
-        $(event.target).removeClass("checked");
-    }
-});
-
+// });
 
 
 $.ajax({
@@ -104,7 +93,5 @@ $.ajax({
     dataType: "json",
     success: function (result) {
         loadTasks(result, 0);
-        //addRemoveBtn();
     }
 });
-

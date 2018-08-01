@@ -14,10 +14,10 @@ let removeTask = (currentElement) => {
             taskId: taskId
         },
         success: (msg) => {
-            console.log("Removing succeed !!!")
+            console.log("Removing succeed !!!");
         },
         error: (XMLHttpRequest, textStatus, errorThrown) => {
-            console.log("Removing failed !!!")
+            console.log("Removing failed !!!");
         }
     });
 }
@@ -25,15 +25,17 @@ let removeTask = (currentElement) => {
 let toggleAddChildTaskModal = (currentElement) => {
     let currentTask = $(currentElement).parent().parent().parent();
     let parent_id = currentTask.attr('id');
-
-    document.cookie = "parent_id=" + parent_id;
+    console.log(parent_id);
+    //document.cookie = "parent_id=" + parent_id;
     $("#addChildTaskModal").modal();
+    $("#parent_id").val(parent_id);
 }
 
 let toggleEditTaskModal = (currentElement) => {
     let currentTask = $(currentElement).parent().parent().parent();
     let currentId = currentTask.attr('id');
 
-    document.cookie = "taskEdittingId=" + currentId;
+    //document.cookie = "taskEdittingId=" + currentId;
     $("#editTaskModal").modal();
+    $("#taskId").val(currentId);
 }

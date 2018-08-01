@@ -19,6 +19,7 @@ router.post('/addTask', (req, res) => {
   let content = req.body.content;
   let start_date = req.body.start_date;
   let end_date = req.body.end_date;
+  console.log("Parent ID = " + parent_id);
   taskModel.add(parent_id, content, start_date, end_date).then(values => {
     console.log(values);
   }).catch(error => {
@@ -54,11 +55,9 @@ router.post('/editTask', (req, res) => {
 
 router.get('/showTask', (req, res) => {
   taskModel.loadAll().then(rows => {
-    // console.log();
-
     for(let i = 0; i < rows.length; i++){
-      rows[i].start_date = moment(rows[0].start_date).format('l');
-      rows[i].end_date = moment(rows[0].end_date).format('l');
+      rows[i].start_date = moment(rows[i].start_date).format('l');
+      rows[i].end_date = moment(rows[i].end_date).format('l');
     }
 
     res.writeHead(200, {
@@ -66,6 +65,19 @@ router.get('/showTask', (req, res) => {
     });
     res.end(JSON.stringify(rows));
   });
+});
+
+router.post('/updateStatus', (req, res) => {
+  let taskId = req.body.taskId;
+  console.log(`taskId ${taskId}`);
+  let status = req.body.status;
+  console.log(`status ${status}`);
+  taskModel.updateStatus(taskId, status).then(values => {
+    console.log("Update status thành công");
+  }).catch(error => {
+    console.log("Update status thất bại");
+  });
+  res.end();
 });
 
 
