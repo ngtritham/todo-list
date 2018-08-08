@@ -10,8 +10,9 @@ exports.loadAll = () => {
     return db.load(sql);
 }
 
-exports.add = (parent_id, content, start_date, end_date) => {
-    let sql = `INSERT INTO tasks (parent_id, content, start_date, end_date) VALUES ('${parent_id}', '${content}', '${start_date}', '${end_date}')`;
+exports.add = (parent_id, content, start_date, end_date, user_id) => {
+    let sql = `INSERT INTO tasks (parent_id, content, start_date, end_date, user_id) VALUES ('${parent_id}', '${content}', '${start_date}', '${end_date}', '${user_id}')`;
+    console.log(sql);
     return db.save(sql);
 }
 

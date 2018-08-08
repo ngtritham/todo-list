@@ -3,82 +3,19 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const taskModel = require('../models/taskModel');
 const moment = require('moment');
+const taskControllers = require('../controllers/taskControllers');
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  taskModel.loadAll().then(rows => {
-    res.render('_layout/index', {
-      title: 'Todo List App',
-      tasks: rows
-    });
-  });
-});
+router.get('/', taskControllers.getTasks);
 
-router.post('/addTask', (req, res) => {
-  let parent_id = req.body.parent_id;
-  let content = req.body.content;
-  let start_date = req.body.start_date;
-  let end_date = req.body.end_date;
-  console.log("Parent ID = " + parent_id);
-  taskModel.add(parent_id, content, start_date, end_date).then(values => {
-    console.log(values);
-  }).catch(error => {
-    console.log(error);
-  });
-  res.redirect('/');
-});
+router.post('/addTask', taskControllers.addTask);
 
-router.post('/removeTask', (req, res) => {
-  taskId = req.body.taskId;
-  console.log(taskId);
-  taskModel.delete(taskId).then(result => {
-    console.log("Xóa task id=" + taskId + " thành công !!!");
-  }).catch(error => {
-    console.log("Lỗi không xóa được task id=" + taskId + "\nError:" + error);
-  });
+router.post('/removeTask', taskControllers.removeTask);
 
-  res.redirect('/');
-});
+router.post('/editTask', taskControllers.editTask);
 
-router.post('/editTask', (req, res) => {
-  let taskId = req.body.taskId;
-  let content = req.body.content;
-  let start_date = req.body.start_date;
-  let end_date = req.body.end_date;
-  taskModel.edit(taskId, content, start_date, end_date).then(values => {
-    console.log(values);
-  }).catch(error => {
-    console.log(error);
-  });
-  res.redirect('/');
-});
+router.get('/showTask', taskControllers.showTask);
 
-router.get('/showTask', (req, res) => {
-  taskModel.loadAll().then(rows => {
-    for(let i = 0; i < rows.length; i++){
-      rows[i].start_date = moment(rows[i].start_date).format('l');
-      rows[i].end_date = moment(rows[i].end_date).format('l');
-    }
-
-    res.writeHead(200, {
-      'Content-Type': 'text/json'
-    });
-    res.end(JSON.stringify(rows));
-  });
-});
-
-router.post('/updateStatus', (req, res) => {
-  let taskId = req.body.taskId;
-  console.log(`taskId ${taskId}`);
-  let status = req.body.status;
-  console.log(`status ${status}`);
-  taskModel.updateStatus(taskId, status).then(values => {
-    console.log("Update status thành công");
-  }).catch(error => {
-    console.log("Update status thất bại");
-  });
-  res.end();
-});
-
+router.post('/updateStatus', taskControllers.updateStatus);
 
 module.exports = router;
