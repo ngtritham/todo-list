@@ -1,12 +1,20 @@
 const taskModel = require('../models/taskModel');
 const moment = require('moment');
 
+
 const TaskControllers = {
-    getTasks: (req, res, next) => {
+    getHome: (req, res) => {
+        res.render('home/home', {
+            isLogged: req.isAuthenticated()
+        });
+    },
+
+    getTasks: (req, res) => {
         taskModel.loadAll().then(rows => {
             res.render('tasks/tasks', {
-                title: 'Todo List App',
-                tasks: rows
+                tasks: rows,
+                user: req.user,
+                isLogged: req.isAuthenticated()
             });
         });
     },
@@ -16,14 +24,13 @@ const TaskControllers = {
         let content = req.body.content;
         let start_date = req.body.start_date;
         let end_date = req.body.end_date;
-        let user_id = 1;
-        console.log("Parent ID = " + parent_id);
+        let user_id = req.user.id;
         taskModel.add(parent_id, content, start_date, end_date, user_id).then(values => {
             console.log(values);
         }).catch(error => {
             console.log(error);
         });
-        res.redirect('/');
+        res.redirect('/tasks');
     },
 
     removeTask: (req, res) => {
@@ -51,13 +58,13 @@ const TaskControllers = {
         res.redirect('/');
     },
 
-    showTask: (req, res) => {
-        taskModel.loadAll().then(rows => {
+    loadTask: (req, res) => {
+        let user_id = req.user.id;
+        taskModel.loadAllByUserId(user_id).then(rows => {
             for (let i = 0; i < rows.length; i++) {
                 rows[i].start_date = moment(rows[i].start_date).format('l');
                 rows[i].end_date = moment(rows[i].end_date).format('l');
             }
-
             res.writeHead(200, {
                 'Content-Type': 'text/json'
             });

@@ -76,19 +76,9 @@ let loadTasks = (tasks, parent_id) => {
     });
 }
 
-// // Toggle checked
-// $("#0").click(function (event) {
-//     let isChecked = $(event.target).hasClass("checked");
-//     if (!isChecked) {
-//         $(event.target).addClass("checked");
-//     } else {
-//         $(event.target).removeClass("checked");
-//     }
-// });
-
 
 $.ajax({
-    url: "/showTask",
+    url: "/loadTask",
     type: "get",
     dataType: "json",
     success: function (result) {

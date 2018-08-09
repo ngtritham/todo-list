@@ -5,6 +5,11 @@ exports.loadAllById = (parentId) => {
     return db.load(sql);
 }
 
+exports.loadAllByUserId = (user_id) => {
+    let sql = `select * from tasks where user_id = ${user_id}`;
+    return db.load(sql);
+}
+
 exports.loadAll = () => {
     let sql = `select * from tasks`;
     return db.load(sql);

@@ -1,38 +1,52 @@
-var createError = require('http-errors');
-var express = require('express');
-var expressLayouts = require('express-ejs-layouts');
-var engine = require('ejs-mate');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const expressLayouts = require('express-ejs-layouts');
+const engine = require('ejs-mate');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const bodyParser = require('body-parser');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const passport = require('passport');
+const passportfb = require('passport-facebook').Strategy;
+const session = require('express-session');
 
-var app = express();
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const authRouter = require('./routes/auth');
+const app = express();
 
 app.engine('ejs', engine);
 // view engine setup
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
 
-//app.use(expressLayouts);
+
+// Setup sesion
+app.use(session({
+  secret: 's3cr3t',
+  resave: true,
+  saveUninitialized: true
+}));
+
+//Setup passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, './public')));
 
-app.use(bodyParser());
-// parse application/json
-app.use(bodyParser.json())
-// Config body-parser
+
 app.use(bodyParser.urlencoded({
-  extended: false
+  extended: true
 }))
 
+// Routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/auth', authRouter);
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -50,6 +64,7 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-// Routes
+
+
 
 module.exports = app;

@@ -213,3 +213,20 @@ span .option {
     width: 150px;
     height: 50px;
 }
+
+.signBtnFrame {
+    position: relative;
+    height: 80px;
+    width: 150px;
+    float: right;
+}
+
+.signBtn {
+    position: absolute;
+    margin-top: 30px;
+}
+
+footer p {
+    text-align: center;
+    margin: 20px;
+}
