@@ -31,8 +31,8 @@ exports.edit = (taskId, content, start_date, end_date) => {
     return db.save(sql);
 }
 
-exports.updateStatus = (id, status) => {
-    let sql = `UPDATE tasks SET status = '${status}' WHERE id = '${id}'`;
+exports.updateStatus = (id, status, status_log) => {
+    let sql = `UPDATE tasks SET status = '${status}', status_log = '${status_log}' WHERE id = '${id}'`;
     console.log(sql);
     return db.save(sql);
 }

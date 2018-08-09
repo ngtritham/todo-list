@@ -34,15 +34,25 @@ const TaskControllers = {
     },
 
     removeTask: (req, res) => {
-        taskId = req.body.taskId;
+        const taskId = req.body.taskId;
+        const status = 2;
+        const status_log = 'Deleted';
         console.log(taskId);
-        taskModel.delete(taskId).then(result => {
+        // taskModel.delete(taskId).then(result => {
+        //     console.log("Xóa task id=" + taskId + " thành công !!!");
+        // }).catch(error => {
+        //     console.log("Lỗi không xóa được task id=" + taskId + "\nError:" + error);
+        // });
+
+        taskModel.updateStatus(taskId, status,status_log)
+            .then(result => {
             console.log("Xóa task id=" + taskId + " thành công !!!");
-        }).catch(error => {
+        })
+        .catch(error => {
             console.log("Lỗi không xóa được task id=" + taskId + "\nError:" + error);
         });
 
-        res.redirect('/');
+        res.redirect('/tasks');
     },
 
     editTask: (req, res) => {
