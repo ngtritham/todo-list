@@ -87,7 +87,8 @@ const TaskControllers = {
         console.log(`taskId ${taskId}`);
         let status = req.body.status;
         console.log(`status ${status}`);
-        taskModel.updateStatus(taskId, status).then(values => {
+        let status_log = req.body.status_log;
+        taskModel.updateStatus(taskId, status, status_log).then(values => {
             console.log("Update status thành công");
         }).catch(error => {
             console.log("Update status thất bại");

@@ -1,7 +1,7 @@
 let loadTasks = (tasks, parent_id) => {
     let tempArr = [];
     tasks.forEach(element => {
-        if (element.parent_id === parent_id && element.deleted === 0) {
+        if (element.parent_id === parent_id && element.status !== 2) {
             tempArr.push(element);
         }
     });
@@ -28,16 +28,22 @@ let loadTasks = (tasks, parent_id) => {
         // Đổ content ra 6 col của LI
         let content = $("<div></div>");
         content.addClass("col-xs-6");
-        content.text(element.content);
+        content.addClass("contentFrame");
+        if(element.status === 1){
+            content.addClass("checked");
+        }
+        content.append(element.content);
+
         row.append(content);
 
         // Đổ Duration ra 4 col tiếp theo của LI
         let duration = $("<div></div>");
         duration.addClass("col-xs-4");
+        duration.addClass("durationFrame");
         duration.text(element.start_date + " - " + element.end_date);
         row.append(duration);
 
-        // 2 col còn lại hiển thiện các nút
+        // 2 col còn lại hiển thị các nút
         let bunttons = $("<div></div>");
         bunttons.addClass("col-xs-2");
         // Nút xóa

@@ -20,7 +20,7 @@ ul li {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-} */
+}
 
 /* ul li:nth-child(odd) {
     background: #f9f9f9;
@@ -30,20 +30,17 @@ ul li:hover {
     background: #ddd;
 } */
 
-ul li.checked {
-    background: #888;
-    color: #64fc92;
+ul li div.checked {
+    color: #18db1b;
 }
 
-ul li.checked::before {
-    content: '';
+ul li div.checked::before {
     position: absolute;
-    border-color: #64fc92;
+    border-color: #18db1b;
     border-style: solid;
     border-width: 0 2px 2px 0;
     top: 10px;
     left: 16px;
-    transform: rotate(45deg);
     height: 15px;
     width: 7px;
 }

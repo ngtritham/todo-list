@@ -6,6 +6,8 @@ let removeTask = (currentElement) => {
     // Xóa task khỏi list hiện tại
     currentTask.remove();
 
+    console.log("current task: ", currentTask);
+    console.log("task ID: ", taskId);
     $.ajax({
         url: "/removeTask",
         type: "POST",
