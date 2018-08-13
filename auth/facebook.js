@@ -8,8 +8,7 @@ passport.use(new FacebookStrategy({
         clientSecret: config.oauth.facebook.clientSecret,
         callbackURL: 'http://localhost:3000/auth/facebook/callback',
         profileFields: ['email', 'gender', 'locale', 'displayName']
-    },
-    (accessToken, refreshToken, profile, done) => {
+    }, (accessToken, refreshToken, profile, done) => {
         User.loadUserById(profile.id)
             .then(user => {
                 console.log("USER: ", user)

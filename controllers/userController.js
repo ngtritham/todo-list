@@ -1,13 +1,13 @@
 const UserControllers = {
     getLogin: (req, res) => {
         res.render('user/login', {
-            isLogged: req.isAuthenticated()
+            isLogged: false
         });
     },
 
     getSignup: (req, res, next) => {
         res.render('user/signup', {
-            isLogged: req.isAuthenticated()
+            isLogged: false
         });
     },
 
@@ -15,11 +15,13 @@ const UserControllers = {
         console.log("req.user: ", req.user);
         res.render('user/profile', {
             user: req.user,
-            isLogged: req.isAuthenticated()
+            isLogged: req.session.isLogged
         });
     },
 
     logOut: (req, res) => {
+        req.session.isLogged = false;
+        req.session.user = null;
         req.logout();
         res.redirect('/');
     }

@@ -27,7 +27,7 @@ let removeTask = (currentElement) => {
 let toggleAddChildTaskModal = (currentElement) => {
     let currentTask = $(currentElement).parent().parent().parent();
     let parent_id = currentTask.attr('id');
-    console.log(parent_id);
+    console.log("Add chile parent id: ", parent_id);
     //document.cookie = "parent_id=" + parent_id;
     $("#addChildTaskModal").modal();
     $("#parent_id").val(parent_id);
