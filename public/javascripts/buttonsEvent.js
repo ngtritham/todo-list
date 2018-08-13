@@ -41,3 +41,12 @@ let toggleEditTaskModal = (currentElement) => {
     $("#editTaskModal").modal();
     $("#taskId").val(currentId);
 }
+
+let toggleUploadThumbnailModal = (currentElement) => {
+    let currentTask = $(currentElement).parent().parent().parent();
+    let currentId = currentTask.attr('id');
+
+    console.log("Upload thumbnail task ID: ", currentId);
+    $("#uploadThumbnailModal").modal();
+    $("#task_upload_id").val(currentId);
+}

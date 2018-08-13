@@ -70,5 +70,39 @@
 
             </div>
         </div>
-    </div>
 
+
+        <!-- Modal upload thumnails for task-->
+        <div class="modal fade" id="uploadThumbnailModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Upload thumbnail</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formUploadThumbnail" class="form-inline" action="/uploadThumbnail" method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <!-- <input type="file" class="form-control" id="thumbnail" name="thumbnail" required>
+                                <input type="hidden" name="task_upload_id" id="task_upload_id" value="">
+                                <button id="btnUploadThumbnail" onclick="validateUploadInput()" type="button" class="btn btn-default">Upload</button> -->
+                                <div class="section">Note: Only image files are allowed.</div>
+                                <div class="inner-wrap">
+                                    <label>
+                                        <input type="file" id="photo" name="photo" />
+                                        <input type="hidden" name="task_upload_id" id="task_upload_id" value="3">
+                                    </label>
+                                    <div class="button-section">
+                                        <input type="submit" name="Upload" value="Upload Photo" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>

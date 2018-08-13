@@ -14,13 +14,13 @@ const authConntrollers = {
             const zaloApp = new zalo_app();
             zaloApp.getAccessTokenProfile(code, function (err, result) {
                 if (err || !result) {
-    
+
                     return res.redirect(config.baseURL);
                     // console.log("Lỗi getAccessTokenProfile:", err);
                 } else {
                     // console.log("Lấy được result:", result);
                 }
-    
+
                 let access_token = result.access_token;
                 zaloApp.getProfileUserByAccessToken(access_token, function (err, profile) {
                     if (err) {
@@ -40,7 +40,7 @@ const authConntrollers = {
                                 // gender: profile.gender,
                                 // birthday: profile.birthday,
                             };
-    
+
                             userModel.loadUserById(user.id)
                                 .then(result => {
                                     // console.log("Kết quả tìm user id : ", user.id);
@@ -60,7 +60,7 @@ const authConntrollers = {
                                                 // console.log("Lỗi: ", error);
                                             });
                                     } else {
-    
+
                                         // console.log("CÓ user id : ", user.id);
                                         // console.log(user);
                                         req.session.user = user;

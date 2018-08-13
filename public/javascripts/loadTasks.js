@@ -1,10 +1,12 @@
 let loadTasks = (tasks, parent_id) => {
     let tempArr = [];
+
     tasks.forEach(element => {
         if (element.parent_id === parent_id && element.status !== 2) {
             tempArr.push(element);
         }
     });
+
 
     if (tempArr.length < 1) {
         return;
@@ -25,9 +27,16 @@ let loadTasks = (tasks, parent_id) => {
         let row = $("<div></div>");
         row.addClass("row");
 
-        // Đổ content ra 6 col của LI
+        // Show thumbnail 1 col
+        let thumbnail = $("<div></div>");
+        thumbnail.addClass('col-xs-1');
+        thumbnail.addClass('thumbnailFrame');
+        let img = "<img src='" +  +"'alt='...' class='img-rounded'>";
+        row.append(thumbnail);
+
+        // Đổ content ra 5 col của LI
         let content = $("<div></div>");
-        content.addClass("col-xs-6");
+        content.addClass("col-xs-5");
         content.addClass("contentFrame");
         if(element.status === 1){
             content.addClass("checked");
@@ -38,14 +47,14 @@ let loadTasks = (tasks, parent_id) => {
 
         // Đổ Duration ra 4 col tiếp theo của LI
         let duration = $("<div></div>");
-        duration.addClass("col-xs-4");
+        duration.addClass("col-xs-3");
         duration.addClass("durationFrame");
         duration.text(element.start_date + " - " + element.end_date);
         row.append(duration);
 
         // 2 col còn lại hiển thị các nút
         let bunttons = $("<div></div>");
-        bunttons.addClass("col-xs-2");
+        bunttons.addClass("col-xs-3");
         // Nút xóa
         let removeBtn = $("<span></span>");
         removeBtn.attr("class", "removeBtn");
@@ -69,6 +78,13 @@ let loadTasks = (tasks, parent_id) => {
         editBtn.attr("onclick", "toggleEditTaskModal(this)");
         editBtn.html("<i class='fas fa-edit'></i>");
 
+        //Nút upload
+        let uploadBtn = $("<span></span>");
+        uploadBtn.attr("class", "uploadBtn");
+        uploadBtn.attr("onclick", "toggleUploadThumbnailModal(this)");
+        uploadBtn.html("<i class='fas fa-upload'></i>");
+
+        bunttons.append(uploadBtn);
         bunttons.append(editBtn);
         bunttons.append(dropdownBtn);
         bunttons.append(addBtn);

@@ -1,21 +1,30 @@
 const UserControllers = {
     getLogin: (req, res) => {
-        res.render('user/login', {
+        const data = {
             isLogged: false
+        }
+        res.render('user/login', {
+            data: data
         });
     },
 
     getSignup: (req, res, next) => {
-        res.render('user/signup', {
+        const data = {
             isLogged: false
+        }
+        res.render('user/signup', {
+            data: data
         });
     },
 
     getProfile: (req, res) => {
         console.log("req.user: ", req.user);
-        res.render('user/profile', {
+        const data = {
             user: req.user,
             isLogged: req.session.isLogged
+        }
+        res.render('user/profile', {
+            data: data
         });
     },
 

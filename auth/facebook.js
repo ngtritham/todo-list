@@ -11,33 +11,33 @@ passport.use(new FacebookStrategy({
     }, (accessToken, refreshToken, profile, done) => {
         User.loadUserById(profile.id)
             .then(user => {
-                console.log("USER: ", user)
+                //console.log("USER: ", user)
                 if (user.length < 1) {
-                    console.log("Khong có userid: ", profile.id);
+                    //console.log("Khong có userid: ", profile.id);
 
                     const id = profile.id;
                     const fullname = profile.displayName;
                     const email = profile._json.email;
-                    const avatar = null;
+                    const avatar = 'http://graph.facebook.com/' + id + '/picture?type=square';
                     const access_token = accessToken;
                     const provider = profile.provider;
 
                     const newUser = {
-                        "id": id,
-                        "fullname": fullname,
-                        "email": email,
-                        "avatar": avatar,
-                        "acces_token": access_token,
-                        "provider": provider
+                        id: id,
+                        fullname: fullname,
+                        email: email,
+                        avatar: avatar,
+                        acces_token: access_token,
+                        provider: provider
                     }
                     User.add(id, fullname, email, avatar, access_token, provider)
                         .then(result => {
-                            console.log("Lưu user thành công");
-                            console.log("newUser: ", newUser);
+                            //console.log("Lưu user thành công");
+                            //console.log("newUser: ", newUser);
                             done(null, newUser);
                         })
                         .catch(error => {
-                            console.log("Lỗi lưu user");
+                            //console.log("Lỗi lưu user");
                             done(null, false);
                         });
                 } else {
@@ -50,12 +50,12 @@ passport.use(new FacebookStrategy({
                         "provider": user[0].provider
                     }
                     done(null, formatedUser);
-                    console.log("Có user ", formatedUser);
+                    //console.log("Có user ", formatedUser);
                 }
 
             })
             .catch((error) => {
-                console.log(error);
+                //console.log(error);
                 done(null, error)
             });
     }
