@@ -91,11 +91,11 @@
                                 <div class="section">Note: Only image files are allowed.</div>
                                 <div class="inner-wrap">
                                     <label>
+                                        <input type="hidden" name="task_upload_id" id="task_upload_id" value="" />
                                         <input type="file" id="photo" name="photo" />
-                                        <input type="hidden" name="task_upload_id" id="task_upload_id" value="3">
                                     </label>
                                     <div class="button-section">
-                                        <input type="submit" name="Upload" value="Upload Photo" />
+                                        <input type="button" name="uploadBtn" id="uploadBtn" value="Upload Photo" />
                                     </div>
                                 </div>
                             </div>
@@ -106,3 +106,53 @@
             </div>
         </div>
     </div>
+
+
+    <script>
+        function base64ToBlob(base64, mime) {
+            mime = mime || '';
+            var sliceSize = 1024;
+            var byteChars = window.atob(base64);
+            var byteArrays = [];
+
+            for (var offset = 0, len = byteChars.length; offset < len; offset += sliceSize) {
+                var slice = byteChars.slice(offset, offset + sliceSize);
+
+                var byteNumbers = new Array(slice.length);
+                for (var i = 0; i < slice.length; i++) {
+                    byteNumbers[i] = slice.charCodeAt(i);
+                }
+
+                var byteArray = new Uint8Array(byteNumbers);
+
+                byteArrays.push(byteArray);
+            }
+
+            return new Blob(byteArrays, { type: mime });
+        }
+
+        const input = document.getElementById("photo");
+        const reader = new FileReader;
+        let dataURL = null;
+        let base64 = null;
+
+        input.onchange = () => {
+            //reader.abort();
+            reader.readAsDataURL(input.files[0]);
+        }
+
+        reader.onload = () => {
+            dataURL = reader.result;
+            base64 = reader.result.split(",").pop();
+            console.log(dataURL);
+            const task_id = $("#task_upload_id").val();
+            //console.log(task_id);
+            $("#uploadBtn").click(() => {
+                const data = {
+                    base64: base64,
+                    task_id: task_id
+                };
+                $.post('/uploadThumbnail', data, () => {});
+            });
+        }
+    </script>

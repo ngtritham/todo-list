@@ -31,14 +31,18 @@ let loadTasks = (tasks, parent_id) => {
         let thumbnail = $("<div></div>");
         thumbnail.addClass('col-xs-1');
         thumbnail.addClass('thumbnailFrame');
-        let img = "<img src='" +  +"'alt='...' class='img-rounded'>";
+        if (element.thumbnail) {
+            let img = "<img src='" + element.thumbnail + "' class='thumnail img-rounded '>";
+            thumbnail.append(img);
+        }
+
         row.append(thumbnail);
 
         // Đổ content ra 5 col của LI
         let content = $("<div></div>");
         content.addClass("col-xs-5");
         content.addClass("contentFrame");
-        if(element.status === 1){
+        if (element.status === 1) {
             content.addClass("checked");
         }
         content.append(element.content);

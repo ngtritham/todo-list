@@ -242,3 +242,10 @@ footer p {
     text-align: center;
     margin: 20px;
 }
+
+.thumnail {
+    /* width: 30;
+    height: 30; */
+    max-width: 25px;
+    max-height: 25px;
+}

@@ -109,26 +109,30 @@ let validateEditInput = () => {
 }
 
 let validateUploadInput = () => {
-    let input_file = $("#thumbnail").val();
-    console.log(input_file);
-    if (input_file === '') {
-        alert("Vui lòng chọn file muốn upload");
-    } else {
-        // $.post('/uploadThumbnail', $("#formUploadThumbnail").serialize(), function (data) {
-        //     console.log(data) //data is the response from the backend
-        // });
+    let id = $("#task_upload_id").val();
+    //alert(id);
+    // if (input_file === '') {
+    //     alert("Vui lòng chọn file muốn upload");
+    // } else {
+    //     // $.post('/uploadThumbnail', $("#formUploadThumbnail").serialize(), function (data) {
+    //     //     console.log(data) //data is the response from the backend
+    //     // });
 
-        $.ajax({
-            type: 'POST',
-            url: "/uploadThumbnail",
-            data: new FormData($("#formUploadThumbnail")[0]),
-            processData: false,
-            contentType: false,
-            success: function (returnval) {
-                // $("#show1").html(returnval);
-                // $('#show1').show();
-                console.log(returnval);
-            }
-        });
-    }
+
+    // }
+
+    let data = new FormData($("#formUploadThumbnail")[0]);
+
+    $.ajax({
+        type: 'POST',
+        url: "/uploadThumbnail",
+        data: data,
+        processData: false,
+        contentType: false,
+        success: function (returnval) {
+            // $("#show1").html(returnval);
+            // $('#show1').show();
+            console.log(returnval);
+        }
+    });
 }

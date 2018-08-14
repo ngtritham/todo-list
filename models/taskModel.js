@@ -36,3 +36,15 @@ exports.updateStatus = (id, status, status_log) => {
     console.log(sql);
     return db.save(sql);
 }
+
+exports.updateThumbnail = (id, thumbnail) => {
+    let sql = `UPDATE tasks SET thumbnail = '${thumbnail}' WHERE id = '${id}'`;
+    console.log(sql);
+    return db.save(sql);
+}
+
+exports.updateThumbnailURL = (id , url) => {
+    let sql = `UPDATE tasks SET thumbnail_url = '${url}' WHERE id = '${id}'`;
+    console.log(sql);
+    return db.save(sql);
+}
