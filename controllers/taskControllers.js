@@ -2,6 +2,7 @@ const taskModel = require('../models/taskModel');
 const moment = require('moment');
 const formidable = require('formidable');
 const fs = require('fs');
+const base64Img = require('base64-img');
 
 const TaskControllers = {
     getHome: (req, res) => {
@@ -137,32 +138,56 @@ const TaskControllers = {
     },
 
     uploadThumbnail: (req, res) => {
-        let task_upload_id = req.body.task_upload_id;
-        console.log("task ID Upload : ", task_upload_id);
+        try {
+            const header = 'data:image/png;base64,';
+            const task_id = req.body.task_id
+            let base64Data = req.body.base64;
+            let ext = base64Data.split(";")[0].split("/")[1];
+            if(ext === 'jpeg'){
+                ext = 'jpg';
+            }
+            console.log("Uploadthumnail: ", base64Data.split(";")[0].split("/")[1]);
 
-        // let form = new formidable.IncomingForm();
-        // console.log(form);
-        // form.parse(req, (err, fields, files) => {
-        //     let oldpath = files.thumbnail.path;
-        //     let newpath = 'C:\\Users\\CPU10993-local\\Desktop\\todo-list\\public\\media\\' + fields.task_upload_id + '\\' + files.thumbnail.name;
-        //     console.log(oldpath);
-        //     console.log(newpath);
-        //     console.log(__filename);
-        //     fs.rename(oldpath, newpath, (err) => {
-        //         if (err) {
-        //             console.error(err);
+            let desFolder = __dirname.split("\\");
 
-        //         } else {
-        //             console.log("Lưu ảnh thành công");
-        //             res.redirect('/tasks');
-        //         }
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
 
-        //     });
-        //     console.log("files: ", files);
-        //     console.log("Error: ", err);
-        //     console.log("fields: ", fields);
-        // });
-        // res.redirect('/tasks');
+            // base64Data = base64Data.replace(/ /g, '+');
+            desFolder.pop();
+            desFolder = desFolder.join('\\');
+            desFolder += '\\public\\media\\thumbnails\\' + year + '\\' + month + '\\' + day + '\\' + task_id;
+
+            const staticPath = 'media/thumbnails/' + year + '/' + month + '/' + day + '/' + task_id + '/' + task_id + '.' + ext;
+
+            console.log("desFolder: ", desFolder);
+            console.log("staticPath: ", staticPath);
+            // taskModel.updateThumbnail(task_id, base64Data)
+            //     .then(result => {
+            //         console.log("Update thumnail thành công !");
+            //     })
+            //     .catch(error => {
+            //         console.log("Update thumnail thất bại !");
+            //     });
+
+            taskModel.updateThumbnailURL(task_id, staticPath)
+                .then(result => {
+                    console.log("Update thumnail URL thành công !");
+                })
+                .catch(error => {
+                    console.log("Update thumnail thất bại !");
+                    console.error(error);
+                });
+
+            base64Img.img(base64Data, desFolder, task_id, function (err, filepath) {});
+            res.status(200);
+            res.redirect('/tasks');
+        } catch (error) {
+            console.error()
+        }
+
     }
 }
 

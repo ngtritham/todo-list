@@ -31,8 +31,8 @@ let loadTasks = (tasks, parent_id) => {
         let thumbnail = $("<div></div>");
         thumbnail.addClass('col-xs-1');
         thumbnail.addClass('thumbnailFrame');
-        if (element.thumbnail) {
-            let img = "<img src='" + element.thumbnail + "' class='thumnail img-rounded '>";
+        if (element.thumbnail_url) {
+            let img = "<img src='" + element.thumbnail_url + "' class='thumnail img-rounded '>";
             thumbnail.append(img);
         }
 

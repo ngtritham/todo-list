@@ -110,16 +110,6 @@ let validateEditInput = () => {
 
 let validateUploadInput = () => {
     let id = $("#task_upload_id").val();
-    //alert(id);
-    // if (input_file === '') {
-    //     alert("Vui lòng chọn file muốn upload");
-    // } else {
-    //     // $.post('/uploadThumbnail', $("#formUploadThumbnail").serialize(), function (data) {
-    //     //     console.log(data) //data is the response from the backend
-    //     // });
-
-
-    // }
 
     let data = new FormData($("#formUploadThumbnail")[0]);
 

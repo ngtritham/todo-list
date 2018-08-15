@@ -246,6 +246,16 @@ footer p {
 .thumnail {
     /* width: 30;
     height: 30; */
-    max-width: 25px;
-    max-height: 25px;
+    max-width: 45px;
+    max-height: 45px;
+}
+
+.preview {
+    width: 200px;
+    height: 200px;
+}
+
+.preview #preview {
+    max-width: 200px;
+    max-height: 200px;
 }
